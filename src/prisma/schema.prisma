@@ -1,0 +1,67 @@
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  email                 String              @unique
+  nationality           String
+  birthPlace            String
+  birthDate             DateTime
+  address               Address?            @relation(fields: [userAddressId], references: [id])
+  phone                 Phone?              @relation(fields: [userPhoneId], references: [id])
+  workExperience        WorkExperience[]
+  userAddressId         Int
+  userPhoneId           Int
+}
+
+model Address {
+  id                    Int                 @id @default(autoincrement())
+  country               String?             @unique
+  city                  String?
+  street                String?
+  code                  Int?
+  users                 User[]
+}
+
+model Phone {
+  id                    Int                 @id @default(autoincrement())
+  countryCode           Int
+  phoneNumeber          Int
+  users                 User[]
+}
+
+model WorkExperience {
+  id                    Int                 @id @default(autoincrement())
+  title                 String
+  description           String
+  user                  User                @relation(fields: [userId], references: [id])
+  company               Company             @relation(fields: [companyId], references: [id])
+  userId                Int
+  companyId             Int
+  technologies          Technology[]
+  workAtivity           WorkActivity[]
+}
+
+model WorkActivity {
+  id                    Int                 @id @default(autoincrement())
+  activity              String
+  workExperience        WorkExperience      @relation(fields: [workExperienceId], references: [id])
+  workExperienceId      Int
+}
+
+model Company {
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  logo                  String
+  workExperience        WorkExperience[]
+}
+
+model Technology {
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  workExperience        WorkExperience[]
+}
