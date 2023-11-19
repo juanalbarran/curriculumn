@@ -1,3 +1,7 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -5,7 +9,11 @@ datasource db {
 
 model User {
   id                    Int                 @id @default(autoincrement())
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime?
   name                  String
+  lastName              String
+  userName              String              @unique
   email                 String              @unique
   nationality           String
   birthPlace            String
@@ -29,7 +37,7 @@ model Address {
 model Phone {
   id                    Int                 @id @default(autoincrement())
   countryCode           Int
-  phoneNumeber          Int
+  phoneNumber           Int
   users                 User[]
 }
 
@@ -37,12 +45,14 @@ model WorkExperience {
   id                    Int                 @id @default(autoincrement())
   title                 String
   description           String
+  startDate             DateTime
+  endDate               DateTime?
   user                  User                @relation(fields: [userId], references: [id])
-  company               Company             @relation(fields: [companyId], references: [id])
+  company               Company?            @relation(fields: [companyId], references: [id])
   userId                Int
-  companyId             Int
+  companyId             Int?
   technologies          Technology[]
-  workAtivity           WorkActivity[]
+  workActivity           WorkActivity[]
 }
 
 model WorkActivity {
@@ -61,6 +71,6 @@ model Company {
 
 model Technology {
   id                    Int                 @id @default(autoincrement())
-  name                  String
+  name                  String              @unique
   workExperience        WorkExperience[]
 }
