@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import '@radix-ui/themes/styles.css';
 import Provider from './Provider'
 import { Footer } from '@/app/components'
 import { Header } from './components/header/Header'
@@ -18,11 +19,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className='dark'>
+    <html lang="en">
       <body className='dark'>
         <Provider>
           <Header/>
-          {children}
+            {children}
           <Footer/>
         </Provider>
       </body>
