@@ -184,6 +184,32 @@ async function main() {
           },
         }
       ]
+      },
+      references: {
+        create: [
+          {
+            name: 'Gustavo',
+            lastName: 'Fuentes',
+            description: '2011 - 2014 Mastersavvy / POS Managed Services as Project Manager Currently at Cybsconsulting as Technology Consultant',
+            phone: {
+              create: {
+                countryCode: 58,
+                phoneNumber: 4122175091
+              }
+            }
+          },
+          {
+            name: 'Wilmer',
+            lastName: 'Leon',
+            description: '2010 - 2011 POS Managed Services as Project Manager and 2014 - 2016 Globinsoft Solutions as CTO Currently at Wefox as Engineering Manager',
+            phone: {
+              create: {
+                countryCode: 34,
+                phoneNumber: 680305487
+              }
+            }
+          },
+        ]
       }
     }
   })

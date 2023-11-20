@@ -34,7 +34,7 @@ CREATE TABLE `Address` (
 CREATE TABLE `Phone` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `countryCode` INTEGER NOT NULL,
-    `phoneNumber` INTEGER NOT NULL,
+    `phoneNumber` BIGINT NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -80,6 +80,18 @@ CREATE TABLE `Technology` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Reference` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `lastName` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NOT NULL,
+    `phoneId` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `_TechnologyToWorkExperience` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
@@ -102,6 +114,12 @@ ALTER TABLE `WorkExperience` ADD CONSTRAINT `WorkExperience_companyId_fkey` FORE
 
 -- AddForeignKey
 ALTER TABLE `WorkActivity` ADD CONSTRAINT `WorkActivity_workExperienceId_fkey` FOREIGN KEY (`workExperienceId`) REFERENCES `WorkExperience`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Reference` ADD CONSTRAINT `Reference_phoneId_fkey` FOREIGN KEY (`phoneId`) REFERENCES `Phone`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Reference` ADD CONSTRAINT `Reference_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_TechnologyToWorkExperience` ADD CONSTRAINT `_TechnologyToWorkExperience_A_fkey` FOREIGN KEY (`A`) REFERENCES `Technology`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
