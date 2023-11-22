@@ -15,7 +15,7 @@ export const UserDataCard = (props: UserCardProps): JSX.Element => {
       <Separator my="3" size="4" />
       <Box className="py-2">
         <Text as="div">{ user.email }</Text>
-        <Text as="div">(+{ user.phone?.countryCode }) { user.phone?.phoneNumber }</Text>
+        <Text as="div">(+{ user.phone?.countryCode }) { Number(user.phone?.phoneNumber) }</Text>
       </Box>
       <Box>
         <Text as="div">I'm { user.nationality }</Text>
