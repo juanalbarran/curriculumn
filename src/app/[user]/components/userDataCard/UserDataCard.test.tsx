@@ -27,15 +27,16 @@ const user: User = {
   phone: {
     id: 1,
     countryCode: 36,
-    phoneNumber: 706601399,
+    phoneNumber: BigInt(706601399),
   },
   workExperience: [],
+  references: [],
 }
 
 describe('<UserDataCard/>', () => {
   it('should render an element with the text Albarran Rodriguez, Juan Jesus', async () => {
     render(<UserDataCard user={user}/>)
     const userDataCard = screen.getByText('Albarran Rodriguez, Juan Jesus')
-    expect(userDataCard).toBeDefined()
+    expect(userDataCard).toHaveTextContent('Albarran Rodriguez, Juan Jesus')
   })
 })
