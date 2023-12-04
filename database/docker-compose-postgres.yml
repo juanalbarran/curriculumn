@@ -1,0 +1,19 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: postgres
+    container_name: postgres
+    environment:
+      #- POSTGRES_USER=${POSTGRES_USER}:juan
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}:mysecretpassword
+      #- POSTGRES_DB=${POSTGRES_DB}:curriculumn
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  postgres-data:
+    external: true

@@ -1,0 +1,3 @@
+CREATE USER juan WITH PASSWORD 'lolipop';
+CREATE DATABASE curriculumn;
+GRANT ALL PRIVILEGES ON DATABASE curriculumn TO juan;
