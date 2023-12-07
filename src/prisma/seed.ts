@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { LanguageLevel, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 async function main() {
   const java = await prisma.technology.create({
@@ -62,6 +62,36 @@ async function main() {
     data: { name: 'Docker' }
   })
 
+  const nativeLanguageLevel = await prisma.languageLevel.create({
+    data: { name: 'Native' }
+  })
+
+  const professionalLanguageLevel = await prisma.languageLevel.create({
+    data: { name: 'Professional' }
+  })
+
+  const conversationalLanguageLevel = await prisma.languageLevel.create({
+    data: { name: 'Conversational' }
+  })
+
+  const spanishLanguage = await prisma.language.create({
+    data: { 
+      name: 'Spanish',
+      languageLevel: {
+        connect: nativeLanguageLevel
+      }
+    }
+  })
+
+  const englishLanguage = await prisma.language.create({
+    data: {
+      name: 'English',
+      languageLevel: {
+        connect: professionalLanguageLevel
+      }
+    }
+  })
+
   const juan = await prisma.user.upsert({
     where: { 
       userName: 'juanalbarran',
@@ -83,6 +113,9 @@ async function main() {
           code: 1115,
           street: 'Bank ban utca 9'
         }
+      },
+      languages: {
+        connect: [ spanishLanguage, englishLanguage ]
       },
       phone: {
         create: {

@@ -14,8 +14,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
-    "@mantine/core": "^7.2.2",
-    "@mantine/hooks": "^7.2.2",
     "@prisma/client": "^5.5.2",
     "@radix-ui/themes": "^2.0.1",
     "dayjs": "^1.11.10",
@@ -41,7 +39,7 @@
     "vitest": "^0.34.6"
   },
   "prisma": {
-    "schema": "src/prisma/schema.prisma",
+    "schema": "src/prisma/mysql/schema.prisma",
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} src/prisma/seed.ts"
   }
 }

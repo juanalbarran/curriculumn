@@ -1,9 +1,7 @@
 import prisma from "@/prisma/db"
 import { User } from "./user";
-import { UserDataCard } from "./components";
-import { UserWorkExperienceCard } from "./components/userWorkExperienceCard/UserWorkExperienceCard";
+import { UserDataCard, UserWorkExperienceCard, UserReferenceCard, UserLanguageCard } from "./components";
 import { Container, Flex } from "@radix-ui/themes";
-import { UserReferenceCard } from "./components/userRefenceCard/UserReferenceCard";
 
 const Page = async ( { params }: { params: { user: string } } ) => {
   
@@ -28,6 +26,11 @@ const Page = async ( { params }: { params: { user: string } } ) => {
         include: {
           phone: true,
         }
+      },
+      languages: {
+        include: {
+          languageLevel: true
+        }
       }
     }
   });
@@ -40,6 +43,7 @@ const Page = async ( { params }: { params: { user: string } } ) => {
           <Flex gap={"7"} direction={"column"}>
             <UserDataCard user={user}/>
             <UserWorkExperienceCard workExperiences={ user.workExperience }/>
+            <UserLanguageCard languages={ user.languages } />
             <UserReferenceCard references={ user.references } />
           </Flex>
         </Container>

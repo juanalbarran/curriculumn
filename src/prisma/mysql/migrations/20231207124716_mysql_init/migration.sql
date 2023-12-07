@@ -92,12 +92,38 @@ CREATE TABLE `Reference` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Language` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `languageLevelId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `LanguageLevel` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `_TechnologyToWorkExperience` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
 
     UNIQUE INDEX `_TechnologyToWorkExperience_AB_unique`(`A`, `B`),
     INDEX `_TechnologyToWorkExperience_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `_LanguageToUser` (
+    `A` INTEGER NOT NULL,
+    `B` INTEGER NOT NULL,
+
+    UNIQUE INDEX `_LanguageToUser_AB_unique`(`A`, `B`),
+    INDEX `_LanguageToUser_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
@@ -122,7 +148,16 @@ ALTER TABLE `Reference` ADD CONSTRAINT `Reference_phoneId_fkey` FOREIGN KEY (`ph
 ALTER TABLE `Reference` ADD CONSTRAINT `Reference_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE `Language` ADD CONSTRAINT `Language_languageLevelId_fkey` FOREIGN KEY (`languageLevelId`) REFERENCES `LanguageLevel`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `_TechnologyToWorkExperience` ADD CONSTRAINT `_TechnologyToWorkExperience_A_fkey` FOREIGN KEY (`A`) REFERENCES `Technology`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_TechnologyToWorkExperience` ADD CONSTRAINT `_TechnologyToWorkExperience_B_fkey` FOREIGN KEY (`B`) REFERENCES `WorkExperience`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_LanguageToUser` ADD CONSTRAINT `_LanguageToUser_A_fkey` FOREIGN KEY (`A`) REFERENCES `Language`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_LanguageToUser` ADD CONSTRAINT `_LanguageToUser_B_fkey` FOREIGN KEY (`B`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

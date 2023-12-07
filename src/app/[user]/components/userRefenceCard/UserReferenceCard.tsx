@@ -12,7 +12,7 @@ export const UserReferenceCard = (props: UserReferenceProps): JSX.Element => {
     <Card size={"3"}>
       { references?.length ? references.map((reference: Reference) => (
         <>
-          <Text as="div">{ reference.lastName }, { reference.name }</Text>
+          <Text as="div" weight={"bold"}>{ reference.lastName }, { reference.name }</Text>
           <Text as="div">+({ reference.phone?.countryCode }) - { Number(reference.phone?.phoneNumber) }</Text>
           <Text as="div">{ reference.description }</Text>
           <Separator my="3" size="4" />
