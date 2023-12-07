@@ -15,6 +15,11 @@ const user = Prisma.validator<Prisma.UserDefaultArgs>()({
             include: {
                 phone: true,
             }
+        },
+        languages: {
+            include: {
+                languageLevel: true
+            }
         }
     }
 })
@@ -32,6 +37,13 @@ const reference = Prisma.validator<Prisma.ReferenceDefaultArgs>()({
     }
 })
 
+const language = Prisma.validator<Prisma.LanguageDefaultArgs>()({
+    include: {
+        languageLevel: true
+    }
+})
+
 export type User = Prisma.UserGetPayload<typeof user>
 export type WorkExperience = Prisma.WorkExperienceGetPayload<typeof workExperience>
 export type Reference = Prisma.ReferenceGetPayload<typeof reference>
+export type Language = Prisma.LanguageGetPayload<typeof language>

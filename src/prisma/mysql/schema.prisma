@@ -24,6 +24,7 @@ model User {
   references            Reference[]
   userAddressId         Int
   userPhoneId           Int
+  languages             Language[]
 }
 
 model Address {
@@ -86,4 +87,18 @@ model Reference {
   phoneId               Int
   user                  User?                @relation(fields: [userId], references: [id])
   userId                Int
+}
+
+model Language {
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  languageLevel         LanguageLevel       @relation(fields: [languageLevelId], references: [id])
+  languageLevelId       Int
+  users                 User[]
+}
+
+model LanguageLevel {
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  language              Language[]
 }
