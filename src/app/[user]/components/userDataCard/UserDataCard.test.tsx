@@ -31,6 +31,7 @@ const user: User = {
   },
   workExperience: [],
   references: [],
+  languages: [],
 }
 
 describe('<UserDataCard/>', () => {
