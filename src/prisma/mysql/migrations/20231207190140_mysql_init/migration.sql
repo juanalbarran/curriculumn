@@ -109,6 +109,27 @@ CREATE TABLE `LanguageLevel` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Study` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `degree` VARCHAR(191) NOT NULL,
+    `start` DATETIME(3) NOT NULL,
+    `end` DATETIME(3) NOT NULL,
+    `schoolId` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `School` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `School_name_key`(`name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `_TechnologyToWorkExperience` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
@@ -149,6 +170,12 @@ ALTER TABLE `Reference` ADD CONSTRAINT `Reference_userId_fkey` FOREIGN KEY (`use
 
 -- AddForeignKey
 ALTER TABLE `Language` ADD CONSTRAINT `Language_languageLevelId_fkey` FOREIGN KEY (`languageLevelId`) REFERENCES `LanguageLevel`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Study` ADD CONSTRAINT `Study_schoolId_fkey` FOREIGN KEY (`schoolId`) REFERENCES `School`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Study` ADD CONSTRAINT `Study_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_TechnologyToWorkExperience` ADD CONSTRAINT `_TechnologyToWorkExperience_A_fkey` FOREIGN KEY (`A`) REFERENCES `Technology`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

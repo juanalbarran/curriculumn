@@ -20,6 +20,11 @@ const user = Prisma.validator<Prisma.UserDefaultArgs>()({
             include: {
                 languageLevel: true
             }
+        },
+        studies: {
+            include: {
+                school: true
+            }
         }
     }
 })
@@ -42,8 +47,14 @@ const language = Prisma.validator<Prisma.LanguageDefaultArgs>()({
         languageLevel: true
     }
 })
+const study = Prisma.validator<Prisma.StudyDefaultArgs>()({
+    include: {
+        school: true
+    }
+})
 
 export type User = Prisma.UserGetPayload<typeof user>
 export type WorkExperience = Prisma.WorkExperienceGetPayload<typeof workExperience>
 export type Reference = Prisma.ReferenceGetPayload<typeof reference>
 export type Language = Prisma.LanguageGetPayload<typeof language>
+export type Study = Prisma.StudyGetPayload<typeof study>
