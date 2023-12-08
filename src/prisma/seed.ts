@@ -1,4 +1,4 @@
-import { LanguageLevel, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 async function main() {
   const java = await prisma.technology.create({
@@ -92,6 +92,12 @@ async function main() {
     }
   })
 
+  const ucab = await prisma.school.create({
+    data: {
+      name: 'Universidad Catolica Andres Bello'
+    }
+  })
+
   const juan = await prisma.user.upsert({
     where: { 
       userName: 'juanalbarran',
@@ -116,6 +122,16 @@ async function main() {
       },
       languages: {
         connect: [ spanishLanguage, englishLanguage ]
+      },
+      studies: {
+        create: {
+          school: {
+            connect: ucab
+          },
+          degree: 'Informatic Engineer',
+          start: new Date('2000-03-01'),
+          end: new Date('2006-03-01'),
+        }
       },
       phone: {
         create: {
